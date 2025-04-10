@@ -1,0 +1,63 @@
+.projects-container {
+    background-color: black;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .projects-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .projects-subtitle {
+    font-size: 1.2rem;
+    color: #aaa;
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }
+  
+  .projects-spinner .spinner {
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    color: #a855f7; /* Tailwind purple-500 */
+  }
+  
+  .spinner-circle {
+    opacity: 0.25;
+  }
+  
+  .spinner-path {
+    opacity: 0.75;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .home-button {
+    padding: 10px 16px;
+    margin-top: 50px;
+    background-color: #a855f7;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+  }
+  
+  .home-button:hover {
+    background-color: #9333ea;
+  }
+  
