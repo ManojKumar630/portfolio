@@ -75,8 +75,6 @@ function NavBar() {
               <Nav.Link
                 as={Link}
                 to="/contact"
-                target="_blank"
-                rel="noreferrer"
                 onClick={() => setExpand(false)}
               >
                 <AiOutlineMail style={{ marginBottom: "2px" }} /> Contact
