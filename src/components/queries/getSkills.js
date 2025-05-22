@@ -4,17 +4,23 @@
 
 import datoCMSClient from './datoCMSClient';
 
+
 const GET_SKILLS = `
 {
-  allSkills(orderBy: category_id_ASC) {
+  allSkills(orderBy: order_ASC) {
     name
-    category
     description
     icon
-    category_id
+    order
+    category {
+      id
+      name
+      order
+    }
   }
 }
 `;
+
 
 /**
  * Fetches skills data from DatoCMS
