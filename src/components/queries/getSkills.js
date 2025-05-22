@@ -21,13 +21,19 @@ const GET_SKILLS = `
 }
 `;
 
+export async function getSkills() {
+  console.log('GraphQL Query:', GET_SKILLS);
+  const data = await datoCMSClient.request(GET_SKILLS);
+  console.log('Skills data fetched:', data);
+  return data.allSkills;
+}
 
 
 /**
  * Fetches skills data from DatoCMS
  * @returns {Promise<Skill[]>}
  */
-export async function getSkills() {
-  const data = await datoCMSClient.request(GET_SKILLS);
-  return data.allSkills;
-}
+// export async function getSkills() {
+//   const data = await datoCMSClient.request(GET_SKILLS);
+//   return data.allSkills;
+// }
