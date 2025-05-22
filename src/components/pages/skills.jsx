@@ -2,10 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './Skills.css';
 import { getSkills } from '../queries/getSkills';
 import Footer from '../footer';
-/**
- * @typedef {import('../types').Skill} Skill
- */
-// Import multiple icon packs
 import * as FaIcons from 'react-icons/fa';
 import * as SiIcons from 'react-icons/si';
 import * as MdIcons from 'react-icons/md';
@@ -15,7 +11,6 @@ const iconLibraries = {
   fa: FaIcons,
   si: SiIcons,
   md: MdIcons,
-  // You can add more here like ai: AiIcons, etc.
 };
 
 const getIconComponent = (iconIdentifier) => {
@@ -24,6 +19,26 @@ const getIconComponent = (iconIdentifier) => {
   const library = iconLibraries[lib.toLowerCase()];
   const Icon = library?.[iconName];
   return Icon ? <Icon /> : <FaIcons.FaQuestionCircle />;
+};
+
+const groupSkillsByCategory = (skills) => {
+  const map = new Map();
+
+  for (const skill of skills) {
+    const categoryId = skill.category.id;
+    if (!map.has(categoryId)) {
+      map.set(categoryId, {
+        category: skill.category,
+        skills: [],
+      });
+    }
+    map.get(categoryId).skills.push(skill);
+  }
+
+  // Convert to sorted array by category.order
+  return Array.from(map.values()).sort(
+    (a, b) => a.category.order - b.category.order
+  );
 };
 
 const Skills = () => {
@@ -39,36 +54,36 @@ const Skills = () => {
 
   if (skillsData.length === 0) return <div>Loading...</div>;
 
-  const skillsByCategory = skillsData.reduce((acc, skill) => {
-    if (!acc[skill.category]) acc[skill.category] = [];
-    acc[skill.category].push(skill);
-    return acc;
-  }, {});
+  const groupedSkills = groupSkillsByCategory(skillsData);
 
   return (
     <div>
-    <Container className="skills-container">
-      {Object.keys(skillsByCategory).map((category, index) => (
-        <div key={index} className="skill-category">
-          <h3 className="category-title">{category}</h3>
-          <div className="skills-grid">
-            {skillsByCategory[category].map((skill, idx) => (
-              <div key={idx} className="skill-card">
-                <div className="icon">{getIconComponent(skill.icon)}</div>
-                <h3 className="skill-name">
-                  {skill.name.split('').map((letter, i) => (
-                    <span key={i} className="letter" style={{ animationDelay: `${i * 0.05}s` }}>
-                      {letter}
-                    </span>
-                  ))}
-                </h3>
-                <p className="skill-description">{skill.description}</p>
-              </div>
-            ))}
+      <Container className="skills-container">
+        {groupedSkills.map((group, index) => (
+          <div key={index} className="skill-category">
+            <h3 className="category-title">{group.category.name}</h3>
+            <div className="skills-grid">
+              {group.skills.map((skill, idx) => (
+                <div key={idx} className="skill-card">
+                  <div className="icon">{getIconComponent(skill.icon)}</div>
+                  <h3 className="skill-name">
+                    {skill.name.split('').map((letter, i) => (
+                      <span
+                        key={i}
+                        className="letter"
+                        style={{ animationDelay: `${i * 0.05}s` }}
+                      >
+                        {letter}
+                      </span>
+                    ))}
+                  </h3>
+                  <p className="skill-description">{skill.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-       </Container>
+        ))}
+      </Container>
       <Footer />
     </div>
   );
