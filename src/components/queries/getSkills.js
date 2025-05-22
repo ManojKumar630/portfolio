@@ -6,11 +6,12 @@ import datoCMSClient from './datoCMSClient';
 
 const GET_SKILLS = `
 {
-  allSkills(orderBy: category_ASC) {
+  allSkills(orderBy: category_id_ASC) {
     name
     category
     description
     icon
+    category_id
   }
 }
 `;
