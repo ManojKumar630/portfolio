@@ -22,6 +22,7 @@ const GET_SKILLS = `
 `;
 
 
+
 /**
  * Fetches skills data from DatoCMS
  * @returns {Promise<Skill[]>}
