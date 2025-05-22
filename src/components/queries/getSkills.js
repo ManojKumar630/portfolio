@@ -7,7 +7,7 @@ import datoCMSClient from './datoCMSClient';
 
 const GET_SKILLS = `
 {
-  allSkills(orderBy: order_ASC) {
+  allSkills(orderBy: [{ order: asc }]) {
     name
     description
     icon
@@ -20,6 +20,7 @@ const GET_SKILLS = `
   }
 }
 `;
+
 
 
 /**
